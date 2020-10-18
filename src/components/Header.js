@@ -4,8 +4,9 @@ import { Paper, Typography, makeStyles, Link } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(7),
-    margin: theme.spacing(2),
+    // margin: theme.spacing(2),
     backgroundColor: "#f4f4f4",
+    marginBottom: theme.spacing(2),
   },
   header: {
     marginBottom: theme.spacing(3),
@@ -19,7 +20,7 @@ const Header = () => {
   const classes = useStyles();
   return (
     <>
-      <Paper className={classes.root}>
+      <Paper className={classes.root} variant="outlined" square>
         <Typography className={classes.header} variant="h1">
           Microblog
         </Typography>
