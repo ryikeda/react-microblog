@@ -4,11 +4,11 @@ import Home from "./Home";
 import NewPost from "./NewPost";
 import Post from "./Post";
 
-const Routes = () => {
+const Routes = ({ posts }) => {
   return (
     <Switch>
       <Route path="/" exact>
-        <Home />
+        <Home posts={posts} />
       </Route>
       <Route path="/add" exact>
         <NewPost />

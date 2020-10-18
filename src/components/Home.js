@@ -14,8 +14,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Home = () => {
+const Home = ({ posts }) => {
   const classes = useStyles();
+
   return (
     <>
       <Container>
@@ -28,12 +29,9 @@ const Home = () => {
           superhighway.
         </Typography>
         <Grid container spacing={3} className={classes.postsContainer}>
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
+          {posts.map((post) => {
+            return <PostCard post={post} key={post.postId} />;
+          })}
         </Grid>
       </Container>
     </>

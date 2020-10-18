@@ -1,6 +1,6 @@
 import React from "react";
-import { Paper, Grid, Typography, Link, makeStyles } from "@material-ui/core";
-
+import { Paper, Grid, Typography, makeStyles } from "@material-ui/core";
+import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: theme.spacing(3),
@@ -13,15 +13,21 @@ const useStyles = makeStyles((theme) => ({
     alignContent: "center",
     justifyContent: "space-between",
   },
+  link: {
+    textDecoration: "none",
+  },
 }));
-const PostCard = () => {
+const PostCard = ({ post: { postId, title, description } }) => {
   const classes = useStyles();
   return (
     <>
       <Grid item xs={12} sm={6}>
         <Paper className={classes.card} variant="outlined">
-          <Link> Post title</Link>
-          <Typography variant="body2">Post description</Typography>
+          <Link to={`/posts/${postId}`} className={classes.link}>
+            {" "}
+            {title}
+          </Link>
+          <Typography variant="body2">{description}</Typography>
         </Paper>
       </Grid>
     </>
