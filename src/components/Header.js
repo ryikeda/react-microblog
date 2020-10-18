@@ -1,5 +1,6 @@
 import React from "react";
-import { Paper, Typography, makeStyles, Link } from "@material-ui/core";
+import { Paper, Typography, makeStyles } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   header: {
     marginBottom: theme.spacing(3),
   },
-  Link: {
+  link: {
     marginRight: theme.spacing(3),
   },
 }));
@@ -27,10 +28,10 @@ const Header = () => {
         <Typography className={classes.header} variant="h5">
           Get in the Rythmn of blogging!
         </Typography>
-        <Link className={classes.Link} href="#">
-          Blog
+        <Link to="/" className={classes.link}>
+          Home
         </Link>
-        <Link href="#">Add a new post</Link>
+        <Link to="/add">Add a new post</Link>
       </Paper>
     </>
   );
