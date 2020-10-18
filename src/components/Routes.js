@@ -14,7 +14,7 @@ const Routes = ({ posts }) => {
         <NewPost />
       </Route>
       <Route path="/posts/:id" exact>
-        <Post />
+        <Post posts={posts} />
       </Route>
       <Redirect to="/" />
     </Switch>
