@@ -1,12 +1,17 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { editPost } from "../actions";
 import Form from "./Form";
 
-const EditForm = ({ posts, editPost }) => {
+const EditForm = () => {
   const { id } = useParams();
-  const [post] = posts.filter((post) => post.postId === id);
+  const dispatch = useDispatch();
+  const post = useSelector((state) => state.posts[id]);
 
-  return <Form post={post} submitFunc={editPost} />;
+  const getFormData = (data) => dispatch(editPost(id, data));
+
+  return <Form post={post} submitFunc={getFormData} />;
 };
 
 export default EditForm;

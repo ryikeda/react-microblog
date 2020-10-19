@@ -14,7 +14,7 @@ const Comment = ({ comment, deleteComment, postId }) => {
   const classes = useStyles();
   const history = useHistory();
   const handleDelete = () => {
-    deleteComment(postId, comment.id);
+    deleteComment(postId, comment.commentId);
     history.push(`/posts/${postId}`);
   };
   return (

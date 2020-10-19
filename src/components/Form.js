@@ -9,13 +9,12 @@ import {
   Box,
   Button,
 } from "@material-ui/core";
-import { uuid } from "uuidv4";
+import { v4 } from "uuid";
 
 const FORM_INITIAL_DATA = {
   title: "",
   description: "",
   body: "",
-  postId: "",
   comments: [],
 };
 
@@ -51,7 +50,7 @@ const Form = ({ post, submitFunc }) => {
     if (post) {
       submitFunc(form);
     } else {
-      submitFunc({ ...form, postId: uuid() });
+      submitFunc(v4(), form);
     }
 
     history.push("/");

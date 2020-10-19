@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 const FORM_INITIAL_DATA = {
   body: "",
 };
-const NewCommentForm = ({ addComment, postId }) => {
+const NewCommentForm = ({ createNewComment, postId }) => {
   const [form, setForm] = useState(FORM_INITIAL_DATA);
   const history = useHistory();
 
@@ -16,7 +16,11 @@ const NewCommentForm = ({ addComment, postId }) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    addComment(postId, { ...form, id: v4(), createdAt: new Date() });
+    createNewComment(postId, {
+      ...form,
+      commentId: v4(),
+      createdAt: new Date(),
+    });
     setForm(FORM_INITIAL_DATA);
     history.push(`/posts/${postId}`);
   };

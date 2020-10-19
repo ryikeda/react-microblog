@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Box,
   Container,
@@ -7,6 +8,7 @@ import {
   makeStyles,
   IconButton,
 } from "@material-ui/core";
+import { deletePost } from "../actions";
 
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -24,14 +26,15 @@ const useStyles = makeStyles((theme) => ({
     flexFlow: 1,
   },
 }));
-const Post = ({ posts, deletePost, addComment, deleteComment }) => {
+const Post = () => {
   const { id } = useParams();
   const classes = useStyles();
   const history = useHistory();
-  const [post] = posts.filter((post) => post.postId === id);
+  const dispatch = useDispatch();
+  const post = useSelector((state) => state.posts[id]);
 
   const handleDelete = () => {
-    deletePost(id);
+    dispatch(deletePost(id));
     history.push("/");
   };
 
@@ -52,11 +55,7 @@ const Post = ({ posts, deletePost, addComment, deleteComment }) => {
       </Box>
 
       <Typography variant="body1">{post.body}</Typography>
-      <Comments
-        post={post}
-        addComment={addComment}
-        deleteComment={deleteComment}
-      />
+      <Comments postObj={{ [id]: { ...post } }} />
     </Container>
   );
 };

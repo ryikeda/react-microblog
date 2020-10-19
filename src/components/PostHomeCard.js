@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const PostCard = ({ post: { postId, title, description } }) => {
   const classes = useStyles();
+
   return (
     <>
       <Grid item xs={12} sm={6}>
