@@ -28,6 +28,24 @@ function App() {
     });
   };
 
+  const addComment = (postId, comment) => {
+    const idx = posts.findIndex((post) => post.postId === postId);
+    setPosts((posts) => {
+      posts[idx].comments = [...posts[idx].comments, comment];
+      return posts;
+    });
+  };
+
+  const deleteComment = (postId, commentId) => {
+    const idx = posts.findIndex((post) => post.postId === postId);
+    setPosts((posts) => {
+      posts[idx].comments = [...posts[idx].comments].filter(
+        (comment) => comment.id !== commentId
+      );
+      return posts;
+    });
+  };
+
   return (
     <>
       <Header />
@@ -36,6 +54,8 @@ function App() {
         createPost={createPost}
         editPost={editPost}
         deletePost={deletePost}
+        addComment={addComment}
+        deleteComment={deleteComment}
       />
     </>
   );

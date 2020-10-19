@@ -10,6 +10,7 @@ import {
 
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import Comments from "./Comments";
 
 const useStyles = makeStyles((theme) => ({
   titleContainer: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     flexFlow: 1,
   },
 }));
-const Post = ({ posts, deletePost }) => {
+const Post = ({ posts, deletePost, addComment, deleteComment }) => {
   const { id } = useParams();
   const classes = useStyles();
   const history = useHistory();
@@ -51,6 +52,11 @@ const Post = ({ posts, deletePost }) => {
       </Box>
 
       <Typography variant="body1">{post.body}</Typography>
+      <Comments
+        post={post}
+        addComment={addComment}
+        deleteComment={deleteComment}
+      />
     </Container>
   );
 };

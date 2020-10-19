@@ -16,6 +16,7 @@ const FORM_INITIAL_DATA = {
   description: "",
   body: "",
   postId: "",
+  comments: [],
 };
 
 const useStyles = makeStyles((theme) => ({

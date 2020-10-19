@@ -5,7 +5,14 @@ import Home from "./Home";
 import NewPost from "./NewPost";
 import Post from "./Post";
 
-const Routes = ({ posts, createPost, editPost, deletePost }) => {
+const Routes = ({
+  posts,
+  createPost,
+  editPost,
+  deletePost,
+  addComment,
+  deleteComment,
+}) => {
   return (
     <Switch>
       <Route path="/" exact>
@@ -15,7 +22,12 @@ const Routes = ({ posts, createPost, editPost, deletePost }) => {
         <NewPost createPost={createPost} />
       </Route>
       <Route path="/posts/:id" exact>
-        <Post posts={posts} deletePost={deletePost} />
+        <Post
+          posts={posts}
+          deletePost={deletePost}
+          addComment={addComment}
+          deleteComment={deleteComment}
+        />
       </Route>
       <Route path="/posts/:id/edit" exact>
         <EditForm posts={posts} editPost={editPost} />
