@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import {
   Box,
   Container,
@@ -7,6 +7,7 @@ import {
   makeStyles,
   IconButton,
 } from "@material-ui/core";
+
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 
@@ -22,11 +23,17 @@ const useStyles = makeStyles((theme) => ({
     flexFlow: 1,
   },
 }));
-const Post = ({ posts }) => {
+const Post = ({ posts, deletePost }) => {
   const { id } = useParams();
+  const classes = useStyles();
+  const history = useHistory();
   const [post] = posts.filter((post) => post.postId === id);
 
-  const classes = useStyles();
+  const handleDelete = () => {
+    deletePost(id);
+    history.push("/");
+  };
+
   return (
     <Container>
       <Box className={classes.titleContainer}>
@@ -34,10 +41,10 @@ const Post = ({ posts }) => {
           {post.title}
         </Typography>
         <Box>
-          <IconButton>
+          <IconButton onClick={() => history.push(`/posts/${id}/edit`)}>
             <EditIcon color="primary" />
           </IconButton>
-          <IconButton>
+          <IconButton onClick={handleDelete}>
             <DeleteIcon color="secondary" />
           </IconButton>
         </Box>

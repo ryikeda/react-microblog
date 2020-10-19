@@ -12,10 +12,31 @@ function App() {
     setPosts((posts) => [...posts, newPost]);
   };
 
+  const editPost = (editData) => {
+    const idx = posts.findIndex((post) => post.postId === editData.postId);
+    setPosts((posts) => {
+      posts[idx] = editData;
+      return posts;
+    });
+  };
+
+  const deletePost = (id) => {
+    const idx = posts.findIndex((post) => post.postId === id);
+    setPosts((posts) => {
+      posts.splice(idx, 1);
+      return posts;
+    });
+  };
+
   return (
     <>
       <Header />
-      <Routes posts={posts} createPost={createPost} />
+      <Routes
+        posts={posts}
+        createPost={createPost}
+        editPost={editPost}
+        deletePost={deletePost}
+      />
     </>
   );
 }
