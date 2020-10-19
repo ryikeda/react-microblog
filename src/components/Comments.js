@@ -9,14 +9,20 @@ const Comments = ({ post, addComment, deleteComment }) => {
     <Box my={3}>
       <hr />
       <Typography variant="h4">Comments</Typography>
-      {post.comments.map((comment) => (
-        <Comment
-          comment={comment}
-          key={comment.id}
-          deleteComment={deleteComment}
-          postId={post.postId}
-        />
-      ))}
+      {post.comments.length ? (
+        post.comments.map((comment) => (
+          <Comment
+            comment={comment}
+            key={comment.id}
+            deleteComment={deleteComment}
+            postId={post.postId}
+          />
+        ))
+      ) : (
+        <Box my={2}>
+          <Typography variant="body1"> No comments yet!</Typography>
+        </Box>
+      )}
       <NewCommentForm addComment={addComment} postId={post.postId} />
     </Box>
   );

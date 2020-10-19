@@ -29,9 +29,15 @@ const Home = ({ posts }) => {
           superhighway.
         </Typography>
         <Grid container spacing={3} className={classes.postsContainer}>
-          {posts.map((post) => {
-            return <PostCard post={post} key={post.postId} />;
-          })}
+          {posts.length ? (
+            posts.map((post) => {
+              return <PostCard post={post} key={post.postId} />;
+            })
+          ) : (
+            <Box m={3}>
+              <Typography variant="body1">Be the first one to post!</Typography>
+            </Box>
+          )}
         </Grid>
       </Container>
     </>
