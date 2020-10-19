@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { isUuid, uuid } from "uuidv4";
 import {
   Container,
   InputLabel,
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
   },
 }));
-const NewPost = () => {
+const NewPost = ({ createPost }) => {
   const [form, setForm] = useState(FORM_INITIAL_DATA);
 
   const handleChange = (e) => {
@@ -38,10 +39,16 @@ const NewPost = () => {
     setForm(FORM_INITIAL_DATA);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    createPost({ ...form, postId: uuid() });
+    setForm(FORM_INITIAL_DATA);
+  };
+
   const classes = useStyles();
   return (
     <Container maxWidth="sm" className={classes.formContainer}>
-      <form>
+      <form onSubmit={handleSubmit}>
         <Box className={classes.inputGroup}>
           <InputLabel htmlFor="title">
             <Typography variant="h5">Title:</Typography>
@@ -83,7 +90,12 @@ const NewPost = () => {
             onChange={handleChange}
           ></TextField>
         </Box>
-        <Button variant="contained" color="primary" className={classes.btn}>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          className={classes.btn}
+        >
           Save
         </Button>
         <Button variant="contained" className={classes.btn} onClick={clearForm}>

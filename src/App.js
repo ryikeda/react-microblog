@@ -8,10 +8,14 @@ import SAMPLE_DATA from "./sampleData";
 function App() {
   const [posts, setPosts] = useState(SAMPLE_DATA);
 
+  const createPost = (newPost) => {
+    setPosts((posts) => [...posts, newPost]);
+  };
+
   return (
     <>
       <Header />
-      <Routes posts={posts} />
+      <Routes posts={posts} createPost={createPost} />
     </>
   );
 }

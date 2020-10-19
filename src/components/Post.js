@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Post = ({ posts }) => {
   const { id } = useParams();
-  const [post] = posts.filter((post) => post.postId === Number(id));
+  const [post] = posts.filter((post) => post.postId === id);
 
   const classes = useStyles();
   return (
