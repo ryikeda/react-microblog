@@ -70,6 +70,7 @@ const Form = ({ post, submitFunc }) => {
             name="title"
             value={form.title}
             onChange={handleChange}
+            required
           ></TextField>
         </Box>
         <Box className={classes.inputGroup}>
@@ -83,6 +84,7 @@ const Form = ({ post, submitFunc }) => {
             name="description"
             value={form.description}
             onChange={handleChange}
+            required
           ></TextField>
         </Box>
         <Box className={classes.inputGroup}>
@@ -98,6 +100,7 @@ const Form = ({ post, submitFunc }) => {
             name="body"
             value={form.body}
             onChange={handleChange}
+            required
           ></TextField>
         </Box>
         <Button
