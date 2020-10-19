@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import EditForm from "./EditForm";
+import EditForm from "./EditPost";
 import Home from "./Home";
 import NewPost from "./NewPost";
 import Post from "./Post";

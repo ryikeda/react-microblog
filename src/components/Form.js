@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   Container,
   InputLabel,
@@ -9,6 +9,14 @@ import {
   Box,
   Button,
 } from "@material-ui/core";
+import { uuid } from "uuidv4";
+
+const FORM_INITIAL_DATA = {
+  title: "",
+  description: "",
+  body: "",
+  postId: "",
+};
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -23,23 +31,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FORM_INITIAL_DATA = {
-  title: "",
-  description: "",
-  body: "",
-};
-
-const EditForm = ({ posts, editPost }) => {
-  const { id } = useParams();
+const Form = ({ post, submitFunc }) => {
   const history = useHistory();
   const classes = useStyles();
-  const [post] = posts.filter((post) => post.postId === id);
-  const [form, setForm] = useState({
-    title: post.title,
-    description: post.description,
-    body: post.body,
-    postId: post.postId,
-  });
+  const [form, setForm] = useState(post || FORM_INITIAL_DATA);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,7 +47,11 @@ const EditForm = ({ posts, editPost }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    editPost(form);
+    if (post) {
+      submitFunc(form);
+    } else {
+      submitFunc({ ...form, postId: uuid() });
+    }
 
     history.push("/");
   };
@@ -117,4 +116,4 @@ const EditForm = ({ posts, editPost }) => {
   );
 };
 
-export default EditForm;
+export default Form;
