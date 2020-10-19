@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { isUuid, uuid } from "uuidv4";
+import { uuid } from "uuidv4";
+import { useHistory } from "react-router-dom";
 import {
   Container,
   InputLabel,
@@ -29,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 const NewPost = ({ createPost }) => {
   const [form, setForm] = useState(FORM_INITIAL_DATA);
+  const classes = useStyles();
+  const history = useHistory();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,9 +46,9 @@ const NewPost = ({ createPost }) => {
     e.preventDefault();
     createPost({ ...form, postId: uuid() });
     setForm(FORM_INITIAL_DATA);
+    history.push("/");
   };
 
-  const classes = useStyles();
   return (
     <Container maxWidth="sm" className={classes.formContainer}>
       <form onSubmit={handleSubmit}>
