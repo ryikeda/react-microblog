@@ -4,9 +4,6 @@ import VoteCard from "./VoteCard";
 
 import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
-  container: {
-    marginTop: theme.spacing(3),
-  },
   card: {
     display: "flex",
     flexDirection: "column",
@@ -25,11 +22,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
 }));
-const TitleCard = ({ title: { id, title, description } }) => {
+const TitleCard = ({ title: { id, title, description, votes } }) => {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12} sm={6}>
+    <Grid item xs={12} sm={6} style={{ order: -votes }}>
       <Paper className={classes.card} variant="outlined" square>
         <Link to={`/posts/${+id}`} className={classes.link}>
           {" "}

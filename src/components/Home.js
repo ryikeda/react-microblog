@@ -25,7 +25,7 @@ const Home = () => {
   useEffect(() => {
     if (titles.length) return;
     dispatch(getTitlesFromAPI());
-  }, [dispatch, titles.length]);
+  }, [dispatch, titles]);
 
   return (
     <Container>
