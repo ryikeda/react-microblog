@@ -5,7 +5,7 @@ import {
   DELETE_POST,
   DELETE_COMMENT,
   ADD_COMMENT,
-  GET_POSTS,
+  GET_TITLES,
   ERROR,
 } from "./actionTypes";
 
@@ -47,10 +47,10 @@ export function deleteComment(postId, commentId) {
   };
 }
 
-export function getPosts(posts) {
+export function getTitles(titles) {
   return {
-    type: GET_POSTS,
-    posts,
+    type: GET_TITLES,
+    titles,
   };
 }
 
@@ -61,11 +61,11 @@ export function handleError(error) {
   };
 }
 
-export function getPostsFromAPI() {
+export function getTitlesFromAPI() {
   return async function (dispatch) {
     try {
-      let posts = await axios.get(`${API_URL}/api/posts`);
-      dispatch(getPosts(posts.data));
+      let titles = await axios.get(`${API_URL}/api/posts/`);
+      dispatch(getTitles(titles.data));
     } catch (error) {
       dispatch(handleError(error.response.data));
     }

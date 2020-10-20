@@ -5,3 +5,4 @@ export const ADD_COMMENT = "ADD_COMMENT";
 export const DELETE_COMMENT = "DELETE_COMMENT";
 export const GET_POSTS = "GET_POSTS";
 export const ERROR = "ERROR";
+export const GET_TITLES = "GET_TITLES";

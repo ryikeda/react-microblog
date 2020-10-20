@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -8,7 +8,7 @@ import {
   makeStyles,
   IconButton,
 } from "@material-ui/core";
-import { deletePost } from "../actions";
+import { deletePost, getPostsFromAPI } from "../actions";
 
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -31,7 +31,10 @@ const Post = () => {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
-  const post = useSelector((state) => state.posts[id]);
+  const post = useSelector((state) =>
+    state.posts.filter((post) => post.id === Number(id))
+  );
+  console.log(post);
 
   const handleDelete = () => {
     dispatch(deletePost(id));
@@ -55,7 +58,7 @@ const Post = () => {
       </Box>
 
       <Typography variant="body1">{post.body}</Typography>
-      <Comments postObj={{ [id]: { ...post } }} />
+      {/* <Comments postObj={{ [id]: { ...post } }} /> */}
     </Container>
   );
 };

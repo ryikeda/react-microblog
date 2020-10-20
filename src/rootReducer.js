@@ -5,11 +5,12 @@ import {
   ADD_COMMENT,
   DELETE_COMMENT,
   ERROR,
-  GET_POSTS,
+  GET_TITLES,
 } from "./actionTypes";
 // import INITIAL_STATE from "./sampleDataRedux";
 const INITIAL_STATE = {
-  posts: {},
+  posts: [],
+  titles: [],
   error: false,
 };
 
@@ -19,8 +20,8 @@ const rootReducer = (state = INITIAL_STATE, action) => {
       return { ...state, error: true };
     }
 
-    case GET_POSTS: {
-      return { ...state, posts: action.posts };
+    case GET_TITLES: {
+      return { ...state, titles: action.titles };
     }
 
     case CREATE_POST: {

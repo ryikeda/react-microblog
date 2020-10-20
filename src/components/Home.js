@@ -7,11 +7,11 @@ import {
   Grid,
   makeStyles,
 } from "@material-ui/core";
-import PostCard from "./PostHomeCard";
-import { getPostsFromAPI } from "../actions";
+import TitleCard from "./TitleCard";
+import { getTitlesFromAPI } from "../actions";
 
 const useStyles = makeStyles((theme) => ({
-  postsContainer: {
+  titlesContainer: {
     marginTop: theme.spacing(3),
   },
 }));
@@ -20,11 +20,10 @@ const Home = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const posts = useSelector((state) => state.posts);
-  const postsArr = Object.entries(posts);
+  const titles = useSelector((state) => state.titles);
 
   useEffect(() => {
-    dispatch(getPostsFromAPI());
+    dispatch(getTitlesFromAPI());
   }, [dispatch]);
 
   return (
@@ -36,11 +35,9 @@ const Home = () => {
         </Box>
         , our innovative site for communicating on the information superhighway.
       </Typography>
-      <Grid container spacing={3} className={classes.postsContainer}>
-        {postsArr.length ? (
-          postsArr.map(([key, post]) => (
-            <PostCard post={{ ...post, postId: key }} key={key} />
-          ))
+      <Grid container spacing={3} className={classes.titlesContainer}>
+        {titles ? (
+          titles.map((title) => <TitleCard title={title} key={title.id} />)
         ) : (
           <Box m={3}>
             <Typography variant="body1">Be the first one to post!</Typography>
