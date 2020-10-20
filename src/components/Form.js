@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import {
   Container,
   InputLabel,
@@ -9,7 +8,6 @@ import {
   Box,
   Button,
 } from "@material-ui/core";
-import { v4 } from "uuid";
 
 const FORM_INITIAL_DATA = {
   title: "",
@@ -31,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Form = ({ post, submitFunc }) => {
-  const history = useHistory();
   const classes = useStyles();
   const [form, setForm] = useState(post || FORM_INITIAL_DATA);
 
@@ -46,13 +43,8 @@ const Form = ({ post, submitFunc }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (post) {
-      submitFunc(form);
-    } else {
-      submitFunc(form);
-    }
 
-    history.push("/");
+    submitFunc(form);
   };
 
   return (

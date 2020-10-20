@@ -30,14 +30,26 @@ const rootReducer = (state = INITIAL_STATE, action) => {
     }
 
     case CREATE_POST: {
-      const stateCopy = { ...state };
-      stateCopy.posts[action.id] = action.data;
-      return stateCopy;
+      return {
+        ...state,
+        titles: [...state.titles, action.newPost],
+      };
     }
 
     case EDIT_POST: {
       const stateCopy = { ...state };
-      stateCopy.posts[action.id] = action.data;
+      // Find index for titles and posts
+      const titlesIdx = stateCopy.titles.findIndex(
+        (title) => title.id === Number(action.id)
+      );
+      const postIdx = stateCopy.posts.findIndex(
+        (post) => post.id === Number(action.id)
+      );
+
+      // Update their values
+      stateCopy.titles[titlesIdx] = action.updatedPost;
+      stateCopy.posts[postIdx] = action.updatedPost;
+
       return stateCopy;
     }
     case DELETE_POST: {

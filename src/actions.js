@@ -12,19 +12,18 @@ import {
 
 const API_URL = "http://localhost:5000";
 
-export function createPost(id, data) {
+export function createPost(newPost) {
   return {
     type: CREATE_POST,
-    id,
-    data,
+    newPost,
   };
 }
 
-export function editPost(id, data) {
+export function editPost(id, updatedPost) {
   return {
     type: EDIT_POST,
     id,
-    data,
+    updatedPost,
   };
 }
 export function deletePost(id) {
@@ -96,6 +95,17 @@ export function createPostAPI(newPost) {
     try {
       let post = await axios.post(`${API_URL}/api/posts`, newPost);
       dispatch(createPost(post.data));
+    } catch (error) {
+      dispatch(handleError(error.response.data));
+    }
+  };
+}
+
+export function editPostAPI(id, postData) {
+  return async function (dispatch) {
+    try {
+      let updatedPost = await axios.put(`${API_URL}/api/posts/${id}`, postData);
+      dispatch(editPost(id, updatedPost.data));
     } catch (error) {
       dispatch(handleError(error.response.data));
     }
