@@ -111,3 +111,14 @@ export function editPostAPI(id, postData) {
     }
   };
 }
+
+export function deletePostAPI(id) {
+  return async function (dispatch) {
+    try {
+      let res = await axios.delete(`${API_URL}/api/posts/${id}`);
+      dispatch(deletePost(id));
+    } catch (error) {
+      dispatch(handleError(error.response.data));
+    }
+  };
+}

@@ -52,9 +52,21 @@ const rootReducer = (state = INITIAL_STATE, action) => {
 
       return stateCopy;
     }
+
     case DELETE_POST: {
       const stateCopy = { ...state };
-      delete stateCopy.posts[action.id];
+      // Find index for titles and posts
+      const titlesIdx = stateCopy.titles.findIndex(
+        (title) => title.id === Number(action.id)
+      );
+      const postIdx = stateCopy.posts.findIndex(
+        (post) => post.id === Number(action.id)
+      );
+
+      // Delete from array
+      stateCopy.titles = stateCopy.titles.slice(titlesIdx, 1);
+      stateCopy.posts = stateCopy.posts.slice(postIdx, 1);
+
       return stateCopy;
     }
     case ADD_COMMENT: {

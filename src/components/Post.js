@@ -8,7 +8,7 @@ import {
   makeStyles,
   IconButton,
 } from "@material-ui/core";
-import { deletePost, getPostFromAPI } from "../actions";
+import { deletePostAPI, getPostFromAPI } from "../actions";
 
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -36,7 +36,7 @@ const Post = () => {
   );
 
   const handleDelete = () => {
-    dispatch(deletePost(id));
+    dispatch(deletePostAPI(id));
     history.push("/");
   };
 
