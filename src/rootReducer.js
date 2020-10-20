@@ -48,7 +48,10 @@ const rootReducer = (state = INITIAL_STATE, action) => {
 
       // Update their values
       stateCopy.titles[titlesIdx] = action.updatedPost;
-      stateCopy.posts[postIdx] = action.updatedPost;
+      const { title, description, body } = action.updatedPost;
+      stateCopy.posts[postIdx].title = title;
+      stateCopy.posts[postIdx].description = description;
+      stateCopy.posts[postIdx].body = body;
 
       return stateCopy;
     }
