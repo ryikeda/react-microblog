@@ -7,6 +7,7 @@ import {
   ADD_COMMENT,
   GET_TITLES,
   ERROR,
+  GET_POST,
 } from "./actionTypes";
 
 const API_URL = "http://localhost:5000";
@@ -54,6 +55,13 @@ export function getTitles(titles) {
   };
 }
 
+export function getPost(post) {
+  return {
+    type: GET_POST,
+    post,
+  };
+}
+
 export function handleError(error) {
   return {
     type: ERROR,
@@ -66,6 +74,28 @@ export function getTitlesFromAPI() {
     try {
       let titles = await axios.get(`${API_URL}/api/posts/`);
       dispatch(getTitles(titles.data));
+    } catch (error) {
+      dispatch(handleError(error.response.data));
+    }
+  };
+}
+
+export function getPostFromAPI(id) {
+  return async function (dispatch) {
+    try {
+      let post = await axios.get(`${API_URL}/api/posts/${id}`);
+      dispatch(getPost(post.data));
+    } catch (error) {
+      dispatch(handleError(error.response.data));
+    }
+  };
+}
+
+export function createPostAPI(newPost) {
+  return async function (dispatch) {
+    try {
+      let post = await axios.post(`${API_URL}/api/posts`, newPost);
+      dispatch(createPost(post.data));
     } catch (error) {
       dispatch(handleError(error.response.data));
     }

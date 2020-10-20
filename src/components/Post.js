@@ -8,7 +8,7 @@ import {
   makeStyles,
   IconButton,
 } from "@material-ui/core";
-import { deletePost, getPostsFromAPI } from "../actions";
+import { deletePost, getPostFromAPI } from "../actions";
 
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -34,31 +34,42 @@ const Post = () => {
   const post = useSelector((state) =>
     state.posts.filter((post) => post.id === Number(id))
   );
-  console.log(post);
 
   const handleDelete = () => {
     dispatch(deletePost(id));
     history.push("/");
   };
 
+  useEffect(() => {
+    if (post.length) return;
+    dispatch(getPostFromAPI(id));
+  }, [dispatch, id]);
+
   return (
     <Container>
-      <Box className={classes.titleContainer}>
-        <Typography variant="h3" className={classes.title}>
-          {post.title}
-        </Typography>
-        <Box>
-          <IconButton onClick={() => history.push(`/posts/${id}/edit`)}>
-            <EditIcon color="primary" />
-          </IconButton>
-          <IconButton onClick={handleDelete}>
-            <DeleteIcon color="secondary" />
-          </IconButton>
-        </Box>
-      </Box>
-
-      <Typography variant="body1">{post.body}</Typography>
-      {/* <Comments postObj={{ [id]: { ...post } }} /> */}
+      {post.length ? (
+        <>
+          <Box className={classes.titleContainer}>
+            <Typography variant="h3" className={classes.title}>
+              {post[0] ? post[0].title : null}
+            </Typography>
+            <Box>
+              <IconButton onClick={() => history.push(`/posts/${id}/edit`)}>
+                <EditIcon color="primary" />
+              </IconButton>
+              <IconButton onClick={handleDelete}>
+                <DeleteIcon color="secondary" />
+              </IconButton>
+            </Box>
+          </Box>
+          <Typography variant="body1">
+            {post[0] ? post[0].body : null}
+          </Typography>
+          {/* <Comments postObj={{ [id]: { ...post } }} /> */}
+        </>
+      ) : (
+        <Typography variant="h6">Loading post...</Typography>
+      )}
     </Container>
   );
 };

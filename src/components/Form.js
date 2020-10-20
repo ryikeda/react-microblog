@@ -15,7 +15,6 @@ const FORM_INITIAL_DATA = {
   title: "",
   description: "",
   body: "",
-  comments: [],
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -50,7 +49,7 @@ const Form = ({ post, submitFunc }) => {
     if (post) {
       submitFunc(form);
     } else {
-      submitFunc(v4(), form);
+      submitFunc(form);
     }
 
     history.push("/");
