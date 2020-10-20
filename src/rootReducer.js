@@ -4,11 +4,25 @@ import {
   DELETE_POST,
   ADD_COMMENT,
   DELETE_COMMENT,
+  ERROR,
+  GET_POSTS,
 } from "./actionTypes";
-import INITIAL_STATE from "./sampleDataRedux";
+// import INITIAL_STATE from "./sampleDataRedux";
+const INITIAL_STATE = {
+  posts: {},
+  error: false,
+};
 
 const rootReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case ERROR: {
+      return { ...state, error: true };
+    }
+
+    case GET_POSTS: {
+      return { ...state, posts: action.posts };
+    }
+
     case CREATE_POST: {
       const stateCopy = { ...state };
       stateCopy.posts[action.id] = action.data;

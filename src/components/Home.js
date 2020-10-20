@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Container,
   Typography,
@@ -8,6 +8,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import PostCard from "./PostHomeCard";
+import { getPostsFromAPI } from "../actions";
 
 const useStyles = makeStyles((theme) => ({
   postsContainer: {
@@ -17,8 +18,14 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
   const posts = useSelector((state) => state.posts);
   const postsArr = Object.entries(posts);
+
+  useEffect(() => {
+    dispatch(getPostsFromAPI());
+  }, [dispatch]);
 
   return (
     <Container>

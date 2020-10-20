@@ -60,6 +60,7 @@ const SAMPLE_DATA = {
       comments: [],
     },
   },
+  error: false,
 };
 
 export default SAMPLE_DATA;
