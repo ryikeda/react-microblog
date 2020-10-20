@@ -71,15 +71,22 @@ const rootReducer = (state = INITIAL_STATE, action) => {
     }
     case ADD_COMMENT: {
       const stateCopy = { ...state };
-      stateCopy.posts[action.id].comments.push(action.data);
+      const postIdx = stateCopy.posts.findIndex(
+        (post) => post.id === Number(action.postId)
+      );
+      stateCopy.posts[postIdx].comments.push(action.data);
 
       return stateCopy;
     }
     case DELETE_COMMENT: {
       const stateCopy = { ...state };
-      stateCopy.posts[action.postId].comments = stateCopy.posts[
-        action.postId
-      ].comments.filter((comment) => comment.commentId !== action.commentId);
+      const postIdx = stateCopy.posts.findIndex(
+        (post) => post.id === Number(action.postId)
+      );
+
+      stateCopy.posts[postIdx].comments = stateCopy.posts[
+        postIdx
+      ].comments.filter((comment) => comment.id !== action.commentId);
 
       return stateCopy;
     }

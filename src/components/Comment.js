@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, Typography, IconButton, makeStyles } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -10,12 +9,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Comment = ({ comment, deleteComment, postId }) => {
+const Comment = ({ comment, deleteComment }) => {
   const classes = useStyles();
-  const history = useHistory();
   const handleDelete = () => {
-    deleteComment(postId, comment.commentId);
-    history.push(`/posts/${postId}`);
+    deleteComment(comment.id);
   };
   return (
     <Box className={classes.root}>
@@ -23,7 +20,7 @@ const Comment = ({ comment, deleteComment, postId }) => {
         <DeleteIcon color="secondary" />
       </IconButton>
       <Typography variant="body1" component="p">
-        {comment.body}
+        {comment.text}
       </Typography>
     </Box>
   );

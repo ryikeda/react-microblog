@@ -1,22 +1,25 @@
 import React from "react";
 import { Box, Typography } from "@material-ui/core";
-import { useDispatch } from "react-redux";
-import { addComment, deleteComment } from "../actions";
+import { useDispatch, useSelector } from "react-redux";
+import { addCommentAPI, deleteCommentAPI } from "../actions";
+import { useParams } from "react-router-dom";
 
 import Comment from "./Comment";
 import NewCommentForm from "./NewCommentForm";
 
-const Comments = ({ postObj }) => {
-  const [[key, post]] = Object.entries(postObj);
-  const { comments } = post;
+const Comments = () => {
+  const { id } = useParams();
+  const comments = useSelector(
+    (state) => state.posts.filter((post) => post.id === Number(id))[0].comments
+  );
 
   const dispatch = useDispatch();
-  const createNewComment = (id, data) => {
-    dispatch(addComment(id, data));
+  const createNewComment = (data) => {
+    dispatch(addCommentAPI(id, { ...data, id }));
   };
 
-  const handleDelete = (postId, commentId) => {
-    dispatch(deleteComment(postId, commentId));
+  const handleDelete = (commentId) => {
+    dispatch(deleteCommentAPI(id, commentId));
   };
 
   return (
@@ -27,9 +30,8 @@ const Comments = ({ postObj }) => {
         comments.map((comment) => (
           <Comment
             comment={comment}
-            key={comment.commentId}
+            key={comment.id}
             deleteComment={handleDelete}
-            postId={key}
           />
         ))
       ) : (
@@ -37,7 +39,7 @@ const Comments = ({ postObj }) => {
           <Typography variant="body1"> No comments yet!</Typography>
         </Box>
       )}
-      <NewCommentForm createNewComment={createNewComment} postId={key} />
+      <NewCommentForm createNewComment={createNewComment} />
     </Box>
   );
 };

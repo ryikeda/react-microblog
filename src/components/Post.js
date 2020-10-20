@@ -65,7 +65,7 @@ const Post = () => {
           <Typography variant="body1">
             {post[0] ? post[0].body : null}
           </Typography>
-          {/* <Comments postObj={{ [id]: { ...post } }} /> */}
+          <Comments />
         </>
       ) : (
         <Typography variant="h6">Loading post...</Typography>

@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import { v4 } from "uuid";
+
 import { TextField, Button } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
 
 const FORM_INITIAL_DATA = {
-  body: "",
+  text: "",
 };
 const NewCommentForm = ({ createNewComment, postId }) => {
   const [form, setForm] = useState(FORM_INITIAL_DATA);
-  const history = useHistory();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,13 +14,8 @@ const NewCommentForm = ({ createNewComment, postId }) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    createNewComment(postId, {
-      ...form,
-      commentId: v4(),
-      createdAt: new Date(),
-    });
+    createNewComment(form);
     setForm(FORM_INITIAL_DATA);
-    history.push(`/posts/${postId}`);
   };
 
   return (
@@ -33,10 +26,10 @@ const NewCommentForm = ({ createNewComment, postId }) => {
         multiline
         fullWidth
         placeholder="New Comment"
-        name="body"
+        name="text"
         required
         margin="dense"
-        value={form.body}
+        value={form.text}
         onChange={handleChange}
       ></TextField>
       <Button type="submit" variant="contained" color="primary">

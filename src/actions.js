@@ -32,10 +32,10 @@ export function deletePost(id) {
     id,
   };
 }
-export function addComment(id, data) {
+export function addComment(postId, data) {
   return {
     type: ADD_COMMENT,
-    id,
+    postId,
     data,
   };
 }
@@ -117,6 +117,33 @@ export function deletePostAPI(id) {
     try {
       let res = await axios.delete(`${API_URL}/api/posts/${id}`);
       dispatch(deletePost(id));
+    } catch (error) {
+      dispatch(handleError(error.response.data));
+    }
+  };
+}
+
+export function addCommentAPI(postId, comment) {
+  return async function (dispatch) {
+    try {
+      let res = await axios.post(
+        `${API_URL}/api/posts/${postId}/comments`,
+        comment
+      );
+      dispatch(addComment(postId, res.data));
+    } catch (error) {
+      dispatch(handleError(error.response.data));
+    }
+  };
+}
+
+export function deleteCommentAPI(postId, commentId) {
+  return async function (dispatch) {
+    try {
+      let res = await axios.delete(
+        `${API_URL}/api/posts/${postId}/comments/${commentId}`
+      );
+      dispatch(deleteComment(postId, commentId));
     } catch (error) {
       dispatch(handleError(error.response.data));
     }
