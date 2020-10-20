@@ -23,8 +23,9 @@ const Home = () => {
   const titles = useSelector((state) => state.titles);
 
   useEffect(() => {
+    if (titles.length) return;
     dispatch(getTitlesFromAPI());
-  }, [dispatch]);
+  }, [dispatch, titles.length]);
 
   return (
     <Container>
