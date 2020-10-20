@@ -7,6 +7,7 @@ import {
   ERROR,
   GET_TITLES,
   GET_POST,
+  UPDATE_VOTES,
 } from "./actionTypes";
 // import INITIAL_STATE from "./sampleDataRedux";
 const INITIAL_STATE = {
@@ -90,6 +91,24 @@ const rootReducer = (state = INITIAL_STATE, action) => {
       stateCopy.posts[postIdx].comments = stateCopy.posts[
         postIdx
       ].comments.filter((comment) => comment.id !== action.commentId);
+
+      return stateCopy;
+    }
+
+    case UPDATE_VOTES: {
+      const stateCopy = { ...state };
+      // Find index for titles and posts
+      const titlesIdx = stateCopy.titles.findIndex(
+        (title) => title.id === Number(action.postId)
+      );
+      const postIdx = stateCopy.posts.findIndex(
+        (post) => post.id === Number(action.postId)
+      );
+
+      if (postIdx !== -1) {
+        stateCopy.posts[postIdx].votes = action.votes;
+      }
+      stateCopy.titles[titlesIdx].votes = action.votes;
 
       return stateCopy;
     }

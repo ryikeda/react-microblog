@@ -25,7 +25,7 @@ const Comments = () => {
   return (
     <Box my={3}>
       <hr />
-      <Typography variant="h4">Comments</Typography>
+      <Typography variant="h5">Comments</Typography>
       {comments.length ? (
         comments.map((comment) => (
           <Comment

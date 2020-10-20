@@ -8,6 +8,7 @@ import {
   GET_TITLES,
   ERROR,
   GET_POST,
+  UPDATE_VOTES,
 } from "./actionTypes";
 
 const API_URL = "http://localhost:5000";
@@ -60,6 +61,13 @@ export function getPost(post) {
     post,
   };
 }
+export function updateVotes(postId, votes) {
+  return {
+    type: UPDATE_VOTES,
+    postId,
+    votes,
+  };
+}
 
 export function handleError(error) {
   return {
@@ -81,12 +89,12 @@ export function getTitlesFromAPI() {
 
 export function getPostFromAPI(id) {
   return async function (dispatch) {
-    try {
-      let post = await axios.get(`${API_URL}/api/posts/${id}`);
-      dispatch(getPost(post.data));
-    } catch (error) {
-      dispatch(handleError(error.response.data));
-    }
+    // try {
+    let post = await axios.get(`${API_URL}/api/posts/${id}`);
+    dispatch(getPost(post.data));
+    // } catch (error) {
+    //   dispatch(handleError(error.response.data));
+    // }
   };
 }
 
@@ -115,7 +123,7 @@ export function editPostAPI(id, postData) {
 export function deletePostAPI(id) {
   return async function (dispatch) {
     try {
-      let res = await axios.delete(`${API_URL}/api/posts/${id}`);
+      await axios.delete(`${API_URL}/api/posts/${id}`);
       dispatch(deletePost(id));
     } catch (error) {
       dispatch(handleError(error.response.data));
@@ -140,7 +148,7 @@ export function addCommentAPI(postId, comment) {
 export function deleteCommentAPI(postId, commentId) {
   return async function (dispatch) {
     try {
-      let res = await axios.delete(
+      await axios.delete(
         `${API_URL}/api/posts/${postId}/comments/${commentId}`
       );
       dispatch(deleteComment(postId, commentId));
@@ -149,3 +157,26 @@ export function deleteCommentAPI(postId, commentId) {
     }
   };
 }
+export function updateVotesAPI(postId, direction) {
+  return async function (dispatch) {
+    try {
+      let res = await axios.post(
+        `${API_URL}/api/posts/${postId}/vote/${direction}`
+      );
+      dispatch(updateVotes(postId, res.data.votes));
+    } catch (error) {
+      dispatch(handleError(error.response.data));
+    }
+  };
+}
+
+// export function updateVotesAPI(postId, direction) {
+//   return async function (dispatch) {
+//     try {
+//       let res = await axios.post(
+//         `${API_URL}/api/posts/${postId}/vote/${direction}`
+//       );
+//       dispatch(updateVotes(postId, res.data));
+//     } catch (error) {}
+//   };
+// }

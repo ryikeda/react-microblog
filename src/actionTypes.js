@@ -6,3 +6,4 @@ export const DELETE_COMMENT = "DELETE_COMMENT";
 export const GET_POST = "GET_POST";
 export const ERROR = "ERROR";
 export const GET_TITLES = "GET_TITLES";
+export const UPDATE_VOTES = "UPDATE_VOTES";

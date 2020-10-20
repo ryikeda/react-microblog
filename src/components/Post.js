@@ -7,12 +7,14 @@ import {
   Typography,
   makeStyles,
   IconButton,
+  Paper,
 } from "@material-ui/core";
 import { deletePostAPI, getPostFromAPI } from "../actions";
 
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Comments from "./Comments";
+import VoteCard from "./VoteCard";
 
 const useStyles = makeStyles((theme) => ({
   titleContainer: {
@@ -24,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexFlow: 1,
+  },
+  actionContainer: {
+    display: "flex",
   },
 }));
 const Post = () => {
@@ -43,25 +48,29 @@ const Post = () => {
   useEffect(() => {
     if (post.length) return;
     dispatch(getPostFromAPI(id));
-  }, [dispatch, id]);
+  }, [dispatch, post.length, id]);
 
   return (
     <Container>
       {post.length ? (
         <>
           <Box className={classes.titleContainer}>
-            <Typography variant="h3" className={classes.title}>
+            <Typography variant="h4" className={classes.title}>
               {post[0] ? post[0].title : null}
             </Typography>
-            <Box>
-              <IconButton onClick={() => history.push(`/posts/${id}/edit`)}>
-                <EditIcon color="primary" />
-              </IconButton>
-              <IconButton onClick={handleDelete}>
-                <DeleteIcon color="secondary" />
-              </IconButton>
+            <Box className={classes.actionContainer}>
+              <Paper variant="outlined" square>
+                <VoteCard postId={post[0].id} />
+                <IconButton onClick={() => history.push(`/posts/${id}/edit`)}>
+                  <EditIcon color="primary" />
+                </IconButton>
+                <IconButton onClick={handleDelete}>
+                  <DeleteIcon color="secondary" />
+                </IconButton>
+              </Paper>
             </Box>
           </Box>
+
           <Typography variant="body1">
             {post[0] ? post[0].body : null}
           </Typography>
